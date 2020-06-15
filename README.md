@@ -1,4 +1,4 @@
-The web application for booking of metting rooms
+The web application for booking of meeting rooms
 =============================
 
 The app is a calendar where you can book meetings for a particular day and time.
