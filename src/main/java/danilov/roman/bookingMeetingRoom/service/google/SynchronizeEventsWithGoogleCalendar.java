@@ -69,8 +69,6 @@ public class SynchronizeEventsWithGoogleCalendar {
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        Credential user = new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
-
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
