@@ -1,0 +1,1 @@
+insert into meeting_room (name) values ('Главная');

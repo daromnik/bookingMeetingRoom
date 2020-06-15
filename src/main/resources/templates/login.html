@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="layouts/main :: layout(~{::title}, ~{::div#form-block}, ~{::link})">
+    <head>
+        <title th:text="#{login.title}">Login</title>
+        <link th:href="@{/assets/css/signin.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="text-center" id="form-block">
+            <form class="form-signin" th:action="@{/login}" method="post">
+                <div class="alert alert-danger" th:if="${param.error}" th:text="#{login.error}"></div>
+                <div th:if="${param.logout}" th:text="#{login.logout_after}"></div>
+
+                <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.title}"></h1>
+                <label for="inputLogin" class="sr-only" th:text="#{login.login}"></label>
+                <input type="text" id="inputLogin" class="form-control" th:placeholder="#{login.login}" name="username" required autofocus>
+                <label for="inputPassword" class="sr-only" th:text="#{login.password}"></label>
+                <input type="password" id="inputPassword" class="form-control" th:placeholder="#{login.password}" name="password" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.sign_in}"></button>
+            </form>
+        </div>
+    </body>
+</html>

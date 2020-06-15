@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="layouts/main :: layout(~{::title}, ~{::div#main-block}, ~{::link})">
+<head>
+    <title th:text="#{index.title}"></title>
+    <link th:href="@{/assets/css/jquery.datetimepicker.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div id="main-block">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark calendar-management d-flex justify-content-between">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-event" th:text="#{index.create}"></button>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#google-event" th:text="#{index.google_send}"></button>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end mb-0">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/week/{data}(data=${@helperView.getDateForWeek(thirstDayPrevWeek)})}"
+                       th:text="#{index.prev_week}"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/week/{data}(data=${@helperView.getDateForWeek(thirstDayNextWeek)})}"
+                       th:text="#{index.newt_week}"></a>
+                </li>
+            </ul>
+        </nav>
+    </nav>
+
+    <h2 th:text="#{index.title}"></h2>
+
+    <div class="d-flex flex-nowrap calendar">
+        <div class="calendar-column calendar-column-left">
+            <div class="calendar-row calendar-row-header"></div>
+                <div th:each="hour: ${#numbers.sequence(0, 24)}"
+                     class="calendar-row" th:text="${hour} < 10 ? '0' + ${hour} + ':00' : ${hour} + ':00'">
+                </div>
+        </div>
+        <div class="flex-fill calendar-column" th:each="reservationByDay: ${reservations}">
+            <div class="calendar-row calendar-row-header">
+                [[${@helperView.getDayOfWeek(reservationByDay.getKey())}]]<br>
+                [[${@helperView.getDateByFormat(reservationByDay.getKey())}]]
+            </div>
+            <div class="calendar-column-data">
+                <div class="calendar-row" th:each="hour: ${#numbers.sequence(0, 23)}"></div>
+                <div th:each="reservation: ${reservationByDay.getValue()}"
+                     th:class="'calendar-reservation reservation_' + ${reservation.getId()}"
+                     th:with="dayOfMonth=${reservationByDay.getKey().getDayOfMonth()}"
+                     th:style="'height: ' + ${@helperView.getHeightReservationBlock(reservation, dayOfMonth)} + '%; top: ' + ${@helperView.getReservationStartMinutes(reservation, dayOfMonth)} + '%'"
+                     th:attr="data-url=@{/getOne/{id}(id=${reservation.getId()})}">
+                    [[${reservation.getMeetingRoom().getName()}]]<br>
+                    [[${reservation.getUser().getUsername()}]]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/form_add_event :: create_event(${currentUserId})}"></div>
+    <div th:replace="~{fragments/form_view_event :: view_event(${currentUserId})}"></div>
+    <div th:replace="~{fragments/form_remove_event :: remove_event}"></div>
+    <div th:replace="~{fragments/form_update_event :: update_event}"></div>
+    <div th:replace="~{fragments/form_google_event :: google_event}"></div>
+
+</div>
+</body>
+</html>

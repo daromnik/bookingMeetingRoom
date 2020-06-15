@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:fragment="layout(title, content, links)">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <th:block th:replace="${links}" />
+        <title th:replace="${title}"></title>
+    </head>
+    <body>
+
+        <div sec:authorize="!isAuthenticated()" class="container" th:insert="${content}"></div>
+
+        <div sec:authorize="isAuthenticated()" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <header class="masthead">
+                <div class="inner">
+                    <h3 class="masthead-brand">MeetRoom</h3>
+                    <nav class="nav nav-masthead justify-content-center">
+                        <span class="user-name" sec:authentication="name"></span>
+                        <span class="user-delimiter">|</span>
+                        <form th:action="@{/logout}" method="post">
+                            <input class="btn btn-link" type="submit" th:value="#{login.logout}">
+                        </form>
+                    </nav>
+                </div>
+            </header>
+
+            <main role="main" class="inner cover" th:insert="${content}"></main>
+
+            <footer class="mastfoot mt-auto">
+                <div class="inner">&nbsp;</div>
+            </footer>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script th:src="@{/assets/js/moment.min.js}"></script>
+        <script th:src="@{/assets/js/jquery.datetimepicker.full.js}"></script>
+        <script th:src="@{/assets/js/main.js}"></script>
+    </body>
+</html>

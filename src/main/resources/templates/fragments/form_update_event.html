@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div class="modal fade" id="update-event" data-backdrop="static" data-keyboard="false"
+         tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true"
+         th:fragment="update_event">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-update-reservation" th:action="@{/update-reservation}" method="post">
+                    <input type="hidden" name="id" id="reservationId">
+                    <input type="hidden" name="user" id="editUser">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel" th:text="#{modal.update_title}"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="editMeetingRoom" th:text="#{modal.meeting_room}"></label>
+                            <select id="editMeetingRoom" name="meetingRoom" class="form-control" required
+                                    th:each="meetingRoom : ${meetingRooms}">
+                                <option th:value="${meetingRoom.getId()}" th:text="${meetingRoom.getName()}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="editDateStart" th:text="#{modal.start_time}"></label>
+                                    <input readonly required type="text" class="form-control date-timepicker-start"
+                                           id="editDateStart" name="dateStart">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="editDateFinish" th:text="#{modal.finish_time}"></label>
+                                    <input readonly required type="text" class="form-control date-timepicker-finish"
+                                           id="editDateFinish" name="dateFinish">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="editDescription" th:text="#{modal.description_event}"></label>
+                            <input type="text" class="form-control" id="editDescription" name="descriptions">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <p class="form-field-error"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal.close}"></button>
+                        <button type="submit" class="btn btn-primary" th:text="#{modal.update}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div class="modal fade" id="remove-event" data-backdrop="static" data-keyboard="false"
+         tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel3" aria-hidden="true"
+         th:fragment="remove_event">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel3" th:text="#{modal.delete_title}"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-danger" th:text="#{modal.want_delete_event}"></p>
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{/delete/}" method="post" class="confirmation-delete">
+                        <button type="submit" class="btn btn-danger" th:text="#{modal.delete}"></button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal.close}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

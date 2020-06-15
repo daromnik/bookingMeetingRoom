@@ -1,0 +1,2 @@
+insert into "users" (username, password, enabled) values ('admin', '$2a$10$4EsrKkdfxhMncA84wqZIkORiJyyOkOiuv8iKeXovb5ps.f1rFbRee', true);
+insert into "users" (username, password, enabled) values ('user', '$2a$10$E6AaML7wAYLKAw8Pf3AOu.6Ldb6ykAV1Tw5AqS9G8LLDII0sXVWXu', true);
